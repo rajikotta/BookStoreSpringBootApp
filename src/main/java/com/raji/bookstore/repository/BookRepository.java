@@ -1,9 +1,9 @@
 package com.raji.bookstore.repository;
 
-import com.raji.bookstore.model.Book;
+import com.raji.bookstore.model.entities.BookEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BookRepository extends CrudRepository<Book, String> {
+public interface BookRepository extends CrudRepository<BookEntity, String> {
 }

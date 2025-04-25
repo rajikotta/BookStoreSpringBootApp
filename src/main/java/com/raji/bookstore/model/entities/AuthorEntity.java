@@ -1,4 +1,4 @@
-package com.raji.bookstore.model;
+package com.raji.bookstore.model.entities;
 
 
 import jakarta.persistence.*;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "author")
-public class Author {
+public class AuthorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id_seq")
