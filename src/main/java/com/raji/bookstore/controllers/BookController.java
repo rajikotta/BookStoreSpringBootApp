@@ -9,10 +9,11 @@ import com.raji.bookstore.services.BookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class BookController {
@@ -35,4 +36,23 @@ public class BookController {
         return new ResponseEntity<BookDto>(savedBookDto, HttpStatus.CREATED);
 
     }
+
+    @GetMapping(path = "/books")
+    public List<BookDto> listBooks() {
+
+        List<BookEntity> authors = bookService.findAll();
+        return authors.stream()
+                .map(bookMapper::mapTo)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping(path = "/authors/{isbn}")
+    public ResponseEntity<BookDto> getBook(@PathVariable("isbn") String isbn) {
+        Optional<BookEntity> foundAuthor = bookService.findOne(isbn);
+        return foundAuthor.map(authorEntity -> {
+            AuthorDto authorDto = authorMapper.mapTo(authorEntity);
+            return new ResponseEntity<>(authorDto, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 }
