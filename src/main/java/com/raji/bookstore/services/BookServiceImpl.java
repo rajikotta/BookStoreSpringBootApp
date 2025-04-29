@@ -11,12 +11,10 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class BookServiceImpl implements BookService {
-    private final BookService bookService;
     BookRepository bookRepository;
 
-    public BookServiceImpl(BookRepository bookRepository, BookService bookService) {
+    public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.bookService = bookService;
     }
 
     @Override

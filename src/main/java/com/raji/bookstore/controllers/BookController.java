@@ -46,13 +46,4 @@ public class BookController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/authors/{isbn}")
-    public ResponseEntity<BookDto> getBook(@PathVariable("isbn") String isbn) {
-        Optional<BookEntity> foundAuthor = bookService.findOne(isbn);
-        return foundAuthor.map(authorEntity -> {
-            AuthorDto authorDto = authorMapper.mapTo(authorEntity);
-            return new ResponseEntity<>(authorDto, HttpStatus.OK);
-        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
 }
